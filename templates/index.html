@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #socket_data {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to match .container */
+        }
+
+        #socket_data p {
+            margin: 0;
+            color: #333;
+        }
+
+        #db_content_container {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            display: inline;
+        }
+
+        #db_content_container:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="socket_data">test</div>
+<div class="container" style="display: none">
+    Download Saved Images from DB: <a id="url" href="{{ url_for('read_from_database') }}">View DB Content</a>
+</div>
+
+<div class="container">
+    Download Saved Images from <p id="db_content_container">>View DB Content<</p>
+    <div id="result"></div>
+</div>
+
+<script>
+    const socket = new WebSocket("ws://localhost:8765");
+    socket.onopen = (event) => {
+        console.log("WebSocket connection opened:", event);
+    };
+    socket.onmessage = (event) => {
+        const message = event.data;
+        console.log("WebSocket message received:", message);
+        document.getElementById("socket_data").innerHTML = `<p>Mouse Position: ${message}</p>`;
+    };
+    socket.onclose = (event) => {
+        console.log("WebSocket connection closed:", event);
+    };
+    socket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+    };
+    interesetdDiv = document.getElementById("view_db_link");
+    const getURL = document.getElementById("url").getAttribute("href")
+    console.log(getURL)
+    document.addEventListener("DOMContentLoaded", function () {
+        let dbContentContainer = document.getElementById("db_content_container");
+        let resultContainer = document.getElementById("result");
+
+        dbContentContainer.addEventListener("click", function () {
+            if (resultContainer.style.display === "block") {
+                resultContainer.style.display = "none";
+                return;
+            }
+            fetch(getURL)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    // Display the fetched content in the socket_data div
+                    resultContainer.innerHTML = data;
+                    resultContainer.style.display = "block"
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+    });
+</script>
+</body>
+</html>
