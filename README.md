@@ -35,7 +35,7 @@ On Linux -> X server  :  [x.org](https://www.x.org/wiki/).
 1. **Clone this Repository:**
 
     ```bash
-    git clone https://github.com/misteryco/Input-Devices-Example.git
+    git clone https://github.com/misteryco/Camera-Capture-and-Mouse-Logger.git
     cd Input-Devices-Example
     ```
 2. **Create new Virtual Environment:**
