@@ -4,7 +4,7 @@ Coordinates capture Mouse Click Capture, and Image Capture with WebSocket Server
 
 # About the app:
 
-This is a Python code that listen for mouse movements and mouse clicks, it streams mouse coordinates via websocket server.
+This is a Python3.11 code that listen for mouse movements and mouse clicks, it streams mouse coordinates via websocket server.
 An on mouse click code capture image with the webcam, and the image is saved on the drive as image and as binary in SQLite
 database.
 To achieve nonblocking behavior especially when capture image, multiprocessing and asyncio are utilized. 
@@ -26,7 +26,7 @@ On linux:
    Clicks are captured only in the browser that runs logging webpage.
 ## Prerequisites
 
-Python: [python.org](https://www.python.org/downloads/).
+Python3.11: [python.org](https://www.python.org/downloads/).
 
 On Linux -> X server  :  [x.org](https://www.x.org/wiki/).
 
