@@ -1,4 +1,4 @@
-# Input-Devices-Example
+# Camera-Capture-and-Mouse-Logger
 
 Coordinates capture Mouse Click Capture, and Image Capture with WebSocket Server
 
@@ -36,7 +36,7 @@ On Linux -> X server  :  [x.org](https://www.x.org/wiki/).
 
     ```bash
     git clone https://github.com/misteryco/Camera-Capture-and-Mouse-Logger.git
-    cd Input-Devices-Example
+    cd Camera-Capture-and-Mouse-Logger
     ```
 2. **Create new Virtual Environment:**
 
